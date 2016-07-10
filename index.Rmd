@@ -114,7 +114,7 @@ train_mid <- train_raw %>% select(-c(1:7))
 valid_mid <- valid_raw %>% select(-c(1:7))
 ```
 
-```{r conf_parallel, echo=FALSE, results='hide'}
+```{r conf_parallel, include=FALSE, results='hide'}
 cluster <- makeCluster(detectCores() - 1)
 registerDoParallel(cluster)
 ```
@@ -128,7 +128,7 @@ missmap(valid_mid, col = c("salmon","steelblue"),
         main = "The Map of Missing values for the Test Data")
 ```
 
-```{r stop_parallel, echo=FALSE, results='hide'}
+```{r stop_parallel, include=FALSE, results='hide'}
 stopCluster(cluster)
 ```
 
@@ -166,7 +166,7 @@ We use "boosting with trees" and "random forests" methods to predict the outcome
 
 ### 3.1 Boosting with Trees Method
 
-```{r conf_parallel_1, echo=FALSE, results='hide'}
+```{r conf_parallel_1, include=FALSE, results='hide'}
 cluster <- makeCluster(detectCores() - 1)
 registerDoParallel(cluster)
 ```
@@ -178,7 +178,7 @@ set.seed(456)
 modGBM <- train(classe ~ ., method = "gbm", data = training, verbose = FALSE)
 ```
 
-```{r stop_parallel_1, echo=FALSE, results='hide'}
+```{r stop_parallel_1, include=FALSE, results='hide'}
 stopCluster(cluster)
 ```
 
@@ -194,7 +194,7 @@ The estimated accuracy of the model is 96.62%, so the estimated out-of-sample er
 
 ### 3.2 Random Forest Method
 
-```{r conf_parallel_2, echo=FALSE, results='hide'}
+```{r conf_parallel_2, include=FALSE, results='hide'}
 cluster <- makeCluster(detectCores() - 1)
 registerDoParallel(cluster)
 ```
@@ -213,7 +213,7 @@ set.seed(1234)
 modRF <- train(classe ~ ., data = training, method = "rf", trControl = fitControl)
 ```
 
-```{r stop_parallel_2, echo=FALSE, results='hide'}
+```{r stop_parallel_2, include=FALSE, results='hide'}
 stopCluster(cluster)
 ```
 Apply the `modRF` model to the testing data set and estimate the accuracy of the model.
